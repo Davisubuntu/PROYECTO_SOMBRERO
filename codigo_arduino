@@ -1,0 +1,49 @@
+#include <Ultrasonic.h>
+
+Ultrasonic ultrasonic1(5, 4); // (Trig PIN,Echo PIN) para el sensor de lado izquierdo
+Ultrasonic ultrasonic2(9, 8); // (Trig PIN,Echo PIN) para el sensor del centro
+Ultrasonic ultrasonic3(7, 6); // (Trig PIN,Echo PIN)para el sensor de lado derecha
+int valor;
+
+void setup ()
+{
+  // Serial.begin (9600);
+  pinMode (11, OUTPUT); //salida zumbador
+  pinMode (13, OUTPUT); //led de indicaciones
+}
+void loop ()
+{
+  
+  if ((ultrasonic3.distanceRead(CM)) < 40)  //funcion de sensado sensor derecho
+  {
+    digitalWrite (13, HIGH);
+    tone(11, 3000, 3000);
+  }
+  if ((ultrasonic3.distanceRead(CM)) > 45)
+  {
+    digitalWrite(13, LOW);
+    noTone (11);
+  }
+
+
+  if ((ultrasonic1.distanceRead(CM)) < 40)  //funcion de sensado sensor izquierdo
+  {
+    digitalWrite (13, HIGH);
+    tone(11, 1000, 3000);
+  }
+  if ((ultrasonic1.distanceRead(CM)) > 45)
+  {
+    digitalWrite(13, LOW);
+    noTone (11);
+  }
+
+  if ((ultrasonic2.distanceRead(CM)) < 40)   //funcion de sensado sensor centro
+  {
+    tone(11, 5000, 3000);
+  }
+  if ((ultrasonic2.distanceRead(CM)) > 45)
+  {
+    noTone(11);
+  }
+
+}
